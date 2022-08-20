@@ -1,19 +1,17 @@
 import { BrowserRouter } from 'react-router-dom'
-import { ThemeProvider } from 'styled-components'
+import { ThemeSwitcherProvider } from './hooks/useThemeSwitcher'
 import { Router } from './Router'
 import { GlobalStyle } from './styles/global'
 
-import { defaultTheme } from './styles/themes'
-
 function App() {
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeSwitcherProvider>
       <BrowserRouter>
         <Router />
       </BrowserRouter>
 
       <GlobalStyle />
-    </ThemeProvider>
+    </ThemeSwitcherProvider>
   )
 }
 
