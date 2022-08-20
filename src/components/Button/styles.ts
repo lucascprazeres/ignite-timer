@@ -15,8 +15,8 @@ export const ButtonContainer = styled.button`
 
   cursor: pointer;
 
-  background: ${(props) => props.theme['green-500']};
-  color: ${(props) => props.theme['gray-100']};
+  background: ${(props) => props.theme.primary};
+  color: ${(props) => props.theme.fonts.button};
 
   &:disabled {
     opacity: 0.7;
@@ -24,7 +24,7 @@ export const ButtonContainer = styled.button`
   }
 
   &:not(:disabled):hover {
-    background: ${(props) => props.theme['green-700']};
+    background: ${(props) => props.theme.primaryDark};
     transition: background-color 0.3s;
   }
 `

@@ -12,9 +12,10 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    background: ${(props) => props.theme['gray-900']};
-    color: ${(props) => props.theme['gray-300']};
+    background: ${(props) => props.theme.background};
+    color: ${(props) => props.theme.fonts.body};
     -webkit-font-smoothing: antialiased;
+    transition: background-color 150ms;
   }
 
   body, input, textarea, button {
