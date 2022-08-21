@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { breakpoints } from '../../styles/breakpoints'
 
 export const HomeContainer = styled.main`
   flex: 1;
@@ -27,6 +28,11 @@ export const InputGroup = styled.fieldset`
   font-size: 1.125rem;
   font-weight: bold;
   flex-wrap: wrap;
+
+  @media ${breakpoints.mobile} {
+    flex-direction: column;
+    gap: 1rem;
+  }
 `
 
 const BaseInput = styled.input`
@@ -68,12 +74,22 @@ export const CountdownContainer = styled.div`
 
   display: flex;
   gap: 1rem;
+
+  @media ${breakpoints.mobile} {
+    font-size: 4rem;
+    line-height: 4rem;
+    gap: 0.5rem;
+  }
 `
 
 export const Number = styled.span`
   background: ${(props) => props.theme.bodyLight};
   padding: 2rem 1rem;
   border-radius: 8px;
+
+  @media ${breakpoints.mobile} {
+    padding: 1rem 0.5rem;
+  }
 `
 
 export const Separator = styled.div`
@@ -84,4 +100,9 @@ export const Separator = styled.div`
   overflow: hidden;
   display: flex;
   justify-content: center;
+
+  @media ${breakpoints.mobile} {
+    padding: 0;
+    width: 1.5rem;
+  }
 `
