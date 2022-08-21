@@ -29,17 +29,19 @@ export function Home() {
             <option value="Projeto 3" />
           </datalist>
 
-          <label htmlFor="minutesAmount">durante</label>
-          <MinutesAmountInput
-            id="minutesAmount"
-            type="number"
-            placeholder="00"
-            max={60}
-            min={5}
-            step={5}
-          />
+          <div>
+            <label htmlFor="minutesAmount">durante</label>
+            <MinutesAmountInput
+              id="minutesAmount"
+              type="number"
+              placeholder="00"
+              max={60}
+              min={5}
+              step={5}
+            />
 
-          <span>minutos.</span>
+            <span>minutos.</span>
+          </div>
         </InputGroup>
 
         <CountdownContainer>

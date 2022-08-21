@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { breakpoints } from '../../styles/breakpoints'
 
 export const LayoutContainer = styled.div`
   max-width: 74rem;
@@ -11,4 +12,8 @@ export const LayoutContainer = styled.div`
 
   display: flex;
   flex-direction: column;
+
+  @media ${breakpoints.tablet} {
+    margin: 5rem 0.5rem;
+  }
 `
