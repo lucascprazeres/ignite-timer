@@ -11,7 +11,12 @@ export const darkTheme = {
   body: colors['gray-800'],
   bodyLight: colors['gray-700'],
   border: colors['gray-500'],
+  tableHead: colors['gray-600'],
 
   primary: colors['green-500'],
   primaryDark: colors['green-700'],
+
+  success: colors['green-500'],
+  warning: colors['yellow-500'],
+  error: colors['red-500'],
 }
