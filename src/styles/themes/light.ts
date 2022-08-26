@@ -11,7 +11,12 @@ export const lightTheme = {
   body: colors.white,
   bodyLight: colors['gray-100'],
   border: colors['gray-500'],
+  tableHead: colors['gray-300'],
 
   primary: colors['green-300'],
   primaryDark: colors['green-500'],
+
+  success: colors['green-300'],
+  warning: colors['yellow-500'],
+  error: colors['red-500'],
 }
