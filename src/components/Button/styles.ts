@@ -1,6 +1,7 @@
 import styled from 'styled-components'
+import { ButtonProps } from '.'
 
-export const ButtonContainer = styled.button`
+export const ButtonContainer = styled.button<ButtonProps>`
   width: 100%;
   border: 0;
   padding: 1rem;
@@ -15,7 +16,7 @@ export const ButtonContainer = styled.button`
 
   cursor: pointer;
 
-  background: ${(props) => props.theme.primary};
+  background: ${(props) => props.theme[props.variant]};
   color: ${(props) => props.theme.fonts.button};
 
   &:disabled {
@@ -24,7 +25,7 @@ export const ButtonContainer = styled.button`
   }
 
   &:not(:disabled):hover {
-    background: ${(props) => props.theme.primaryDark};
+    background: ${(props) => props.theme[`${props.variant}Dark`]};
     transition: background-color 0.3s;
   }
 `
