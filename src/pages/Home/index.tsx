@@ -36,10 +36,17 @@ export function Home() {
   const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId)
 
   useEffect(() => {
+    let cycleInterval: number
+
     if (activeCycle) {
-      setInterval(() => {
+      cycleInterval = setInterval(() => {
         setSecondsPassed(differenceInSeconds(new Date(), activeCycle.startDate))
       }, 1000)
+    }
+
+    return () => {
+      clearInterval(cycleInterval)
+      setSecondsPassed(0)
     }
   }, [activeCycle])
 
@@ -65,8 +72,14 @@ export function Home() {
   const minutesAmount = Math.floor(currentSeconds / 60)
   const secondsAmount = currentSeconds % 60
 
-  const minutesWithPaddingZeros = String(minutesAmount).padStart(2, '0')
-  const secondsWithPaddingZeros = String(secondsAmount).padStart(2, '0')
+  const minutes = String(minutesAmount).padStart(2, '0')
+  const seconds = String(secondsAmount).padStart(2, '0')
+
+  useEffect(() => {
+    if (activeCycle) {
+      document.title = `${minutes}:${seconds}`
+    }
+  }, [activeCycle, minutes, seconds])
 
   const task = watch('task')
   const isSubmitDisabled = !task
@@ -106,11 +119,11 @@ export function Home() {
         </InputGroup>
 
         <CountdownContainer>
-          <Number>{minutesWithPaddingZeros[0]}</Number>
-          <Number>{minutesWithPaddingZeros[1]}</Number>
+          <Number>{minutes[0]}</Number>
+          <Number>{minutes[1]}</Number>
           <Separator>:</Separator>
-          <Number>{secondsWithPaddingZeros[0]}</Number>
-          <Number>{secondsWithPaddingZeros[1]}</Number>
+          <Number>{seconds[0]}</Number>
+          <Number>{seconds[1]}</Number>
         </CountdownContainer>
 
         <Button type="submit" disabled={isSubmitDisabled}>
