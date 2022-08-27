@@ -16,7 +16,7 @@ export const darkTheme = {
   primary: colors['green-500'],
   primaryDark: colors['green-700'],
 
-  success: colors['green-500'],
   warning: colors['yellow-500'],
-  error: colors['red-500'],
+  danger: colors['red-500'],
+  dangerDark: colors['red-700'],
 }

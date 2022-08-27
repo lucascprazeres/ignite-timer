@@ -18,5 +18,6 @@ export const lightTheme = {
 
   success: colors['green-300'],
   warning: colors['yellow-500'],
-  error: colors['red-500'],
+  danger: colors['red-500'],
+  dangerDark: colors['red-700'],
 }
