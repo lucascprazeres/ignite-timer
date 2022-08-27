@@ -62,7 +62,7 @@ export const HistoryList = styled.div`
 `
 
 interface StatusProps {
-  statusColor: 'success' | 'warning' | 'error'
+  statusColor: 'primary' | 'warning' | 'danger'
 }
 
 export const Status = styled.span<StatusProps>`
