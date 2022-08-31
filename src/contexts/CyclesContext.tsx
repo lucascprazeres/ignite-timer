@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useReducer, useState } from 'react'
+import { ReducersEnum } from '../constants/reducers'
 
 export interface CreateCycleData {
   task: string
@@ -31,18 +32,49 @@ interface CyclesContextProviderProps {
   children: ReactNode
 }
 
+interface CyclesState {
+  cycles: Cycle[]
+  activeCycleId: string | null
+}
+
 export function CyclesContextProvider({
   children,
 }: CyclesContextProviderProps) {
-  const [cycles, dispatch] = useReducer((state: Cycle[], action: any) => {
-    if (action.type === 'ADD_NEW_CYCLE') {
-      return [...state, action.payload.newCycle]
+  const [cyclesState, dispatch] = useReducer((state: CyclesState, action: any) => {
+    if (action.type === ReducersEnum.AddNewCycle) {
+      return {
+        ...state,
+        cycles: [...state.cycles, action.payload.newCycle],
+        activeCycleId: action.payload.newCycle.id
+      }
+    }
+
+    if (action.type === ReducersEnum.InterruptCurrentCycle) {
+      return {
+        ...state,
+        cycles: state.cycles.map((cycle) => {
+              if (cycle.id === state.activeCycleId) {
+                return {
+                  ...cycle,
+                  interrupedDate: new Date(),
+                }
+              } else {
+                return cycle
+              }
+            }),
+        activeCycleId: null
+      }
     }
 
     return state
-  }, [])
-  const [activeCycleId, setActiveCycleId] = useState<string | null>(null)
+  }, {
+    cycles: [],
+    activeCycleId: null
+  })
+
   const [secondsPassed, setSecondsPassed] = useState(0)
+
+  const { cycles, activeCycleId } = cyclesState
 
   const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId)
 
@@ -52,7 +84,7 @@ export function CyclesContextProvider({
 
   function markCurrentCycleAsFinished() {
     dispatch({
-      type: 'MARK_CURRENT_CYCLE_AS_FINISHED',
+      type: ReducersEnum.MarkCurrentCycleAsFinished,
       payload: {
         activeCycleId
       }
@@ -80,38 +112,22 @@ export function CyclesContextProvider({
     }
 
     dispatch({
-      type: 'ADD_NEW_CYCLE',
+      type: ReducersEnum.AddNewCycle,
       payload: {
         newCycle
       }
     })
 
-    // setCycles((state) => [...state, newCycle])
-    setActiveCycleId(id)
     setAmountSecondsPassed(0)
   }
 
   function interruptCurrentCycle() {
     dispatch({
-      type: 'INTERRUPT_CURRENT_CYCLE',
+      type: ReducersEnum.InterruptCurrentCycle,
       payload: {
         activeCycleId
       }
     })
-
-    // setCycles((state) =>
-    //   state.map((cycle) => {
-    //     if (cycle.id === activeCycleId) {
-    //       return {
-    //         ...cycle,
-    //         interrupedDate: new Date(),
-    //       }
-    //     } else {
-    //       return cycle
-    //     }
-    //   }),
-    // )
-    setActiveCycleId(null)
   }
 
   return (
