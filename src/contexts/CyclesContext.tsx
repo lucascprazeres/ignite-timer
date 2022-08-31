@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useReducer, useState } from 'react'
-import { ReducersEnum } from '../constants/reducers'
+import { ActionTypes } from '../constants/reducers'
 
 export interface CreateCycleData {
   task: string
@@ -41,32 +41,46 @@ export function CyclesContextProvider({
   children,
 }: CyclesContextProviderProps) {
   const [cyclesState, dispatch] = useReducer((state: CyclesState, action: any) => {
-    if (action.type === ReducersEnum.AddNewCycle) {
-      return {
-        ...state,
-        cycles: [...state.cycles, action.payload.newCycle],
-        activeCycleId: action.payload.newCycle.id
-      }
-    }
-
-    if (action.type === ReducersEnum.InterruptCurrentCycle) {
-      return {
-        ...state,
-        cycles: state.cycles.map((cycle) => {
-              if (cycle.id === state.activeCycleId) {
-                return {
-                  ...cycle,
-                  interrupedDate: new Date(),
+    switch (action.type) {
+      case ActionTypes.AddNewCycle:
+        return {
+          ...state,
+          cycles: [...state.cycles, action.payload.newCycle],
+          activeCycleId: action.payload.newCycle.id
+        }
+      case ActionTypes.MarkCurrentCycleAsFinished:
+        return {
+          ...state,
+          cycles: state.cycles.map((cycle) => {
+                if (cycle.id === state.activeCycleId) {
+                  return {
+                    ...cycle,
+                    interrupedDate: new Date(),
+                  }
+                } else {
+                  return cycle
                 }
-              } else {
-                return cycle
-              }
-            }),
-        activeCycleId: null
-      }
+              }),
+          activeCycleId: null
+        }
+      case ActionTypes.InterruptCurrentCycle:
+        return {
+          ...state,
+          cycles: state.cycles.map((cycle) => {
+                if (cycle.id === state.activeCycleId) {
+                  return {
+                    ...cycle,
+                    finishedDate: new Date(),
+                  }
+                } else {
+                  return cycle
+                }
+              }),
+          activeCycleId: null
+        }
+      default:
+        return state
     }
-
-    return state
   }, {
     cycles: [],
     activeCycleId: null
@@ -84,7 +98,7 @@ export function CyclesContextProvider({
 
   function markCurrentCycleAsFinished() {
     dispatch({
-      type: ReducersEnum.MarkCurrentCycleAsFinished,
+      type: ActionTypes.MarkCurrentCycleAsFinished,
       payload: {
         activeCycleId
       }
@@ -112,7 +126,7 @@ export function CyclesContextProvider({
     }
 
     dispatch({
-      type: ReducersEnum.AddNewCycle,
+      type: ActionTypes.AddNewCycle,
       payload: {
         newCycle
       }
@@ -123,7 +137,7 @@ export function CyclesContextProvider({
 
   function interruptCurrentCycle() {
     dispatch({
-      type: ReducersEnum.InterruptCurrentCycle,
+      type: ActionTypes.InterruptCurrentCycle,
       payload: {
         activeCycleId
       }
