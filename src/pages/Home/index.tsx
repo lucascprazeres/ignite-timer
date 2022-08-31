@@ -14,17 +14,22 @@ interface NewCycleFormData {
 
 export function Home() {
   const newCycleForm = useForm<NewCycleFormData>()
-  const { handleSubmit, watch /* reset */ } = newCycleForm
+  const { handleSubmit, watch, reset } = newCycleForm
 
   const { createNewCycle, activeCycle, interruptCurrentCycle } =
     useContext(CyclesContext)
+
+  function handleCreateNewCycle(data: NewCycleFormData) {
+    createNewCycle(data)
+    reset()
+  }
 
   const task = watch('task')
   const isSubmitDisabled = !task
 
   return (
     <HomeContainer>
-      <Form onSubmit={handleSubmit(createNewCycle)}>
+      <Form onSubmit={handleSubmit(handleCreateNewCycle)}>
         <FormProvider {...newCycleForm}>
           <NewCycleForm />
         </FormProvider>
