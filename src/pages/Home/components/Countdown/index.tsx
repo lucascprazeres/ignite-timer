@@ -1,6 +1,6 @@
 import { differenceInSeconds } from 'date-fns'
 import { useContext, useEffect } from 'react'
-import { CyclesContext } from '../..'
+import { CyclesContext } from '../../../../contexts/CyclesContext'
 import { CountdownContainer, Separator, Number } from './styles'
 
 export function Countdown() {
@@ -30,7 +30,6 @@ export function Countdown() {
           new Date(),
           activeCycle.startDate,
         )
-        console.log(secondsDifference)
 
         if (secondsDifference >= totalSeconds) {
           markCurrentCycleAsFinished()
