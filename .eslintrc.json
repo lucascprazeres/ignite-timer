@@ -1,7 +1,7 @@
 {
   "extends": "@rocketseat/eslint-config/react",
   "rules": {
-    "react/jsx-no-undef": [2, { "allowGlobals": true }],
-    "no-undef": [2, { "allowGlobals": true }]
+    "react/jsx-no-undef": "off",
+    "no-undef": "off"
   }
 }
