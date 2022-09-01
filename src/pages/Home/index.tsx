@@ -34,20 +34,22 @@ export function Home() {
           <NewCycleForm />
         </FormProvider>
         <Countdown />
-
-        {activeCycle ? (
-          <Button
-            type="button"
-            variant="danger"
-            onClick={interruptCurrentCycle}
-          >
-            <HandPalm size={24} /> Encerrar
-          </Button>
-        ) : (
-          <Button type="submit" disabled={isSubmitDisabled} variant="primary">
-            <Play size={24} /> Começar
-          </Button>
-        )}
+        <Choose>
+          <When condition={activeCycle}>
+            <Button
+              type="button"
+              variant="danger"
+              onClick={interruptCurrentCycle}
+            >
+              <HandPalm size={24} /> Encerrar
+            </Button>
+          </When>
+          <Otherwise>
+            <Button type="submit" disabled={isSubmitDisabled} variant="primary">
+              <Play size={24} /> Começar
+            </Button>
+          </Otherwise>
+        </Choose>
       </Form>
     </HomeContainer>
   )
